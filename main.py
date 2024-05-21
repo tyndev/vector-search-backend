@@ -27,6 +27,9 @@ class SearchResult(BaseModel):
     summary: str
     url: str
 
+class SearchTip(BaseModel):
+    id:str
+    tip: str
 
 @app.get("/")
 async def read_root():
@@ -40,7 +43,23 @@ async def search(query: Optional[str] = Query(None, min_length=3, max_length=50)
     #TODO: Replaced simulated search response with rag query
     print(query)
     results = [
-        SearchResult(id="doc1", title="Title of Doc1", summary="This document explores top-rated utilities renowned for their quality and service.", url="https://example.com/doc1"),
-        SearchResult(id="doc2", title="Title of Doc1", summary="Learn about the science behind the electric grid.", url="https://example.com/doc2")
+        SearchResult(id="1", title="Title of Doc1", summary="This document explores top-rated utilities renowned for their quality and service.", url="https://example.com/doc1"),
+        SearchResult(id="2", title="Title of Doc1", summary="Learn about the science behind the electric grid.", url="https://example.com/doc2")
     ]
     return results
+
+
+@app.get("/search-tips", response_model=List[SearchTip])
+async def tips(query: Optional[str] = Query(None, max_length=50)):
+    print(f"Search Tips requested for... {query}")
+    search_tips = []
+    if len(query or "") < 10:
+        search_tips = [
+            SearchTip(id="0", tip="Which document talks about top-rated utilities?"),
+        ]
+    elif len(query or "") >= 10:
+        search_tips = [
+            SearchTip(id="0", tip="Which document talks about top-rated utilities?"),
+            SearchTip(id="1", tip="How does electricity work?")
+        ]        
+    return search_tips
