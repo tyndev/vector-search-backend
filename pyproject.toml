@@ -9,6 +9,14 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "^0.111.0"
 python-dotenv = "^1.0.1"
+requests = "^2.32.3"
+langchain = "^0.2.5"
+qdrant-client = "^1.9.1"
+langchain-community = "^0.2.5"
+openai = "^1.35.1"
+langchain-qdrant = "^0.1.1"
+langchain-openai = "^0.1.8"
+pdfplumber = "^0.11.1"
 
 
 [build-system]
